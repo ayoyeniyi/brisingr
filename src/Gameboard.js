@@ -5,10 +5,10 @@ export default class Gameboard {
 
     initializeBoard() {
         const board = [];
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 0; i <= 9; i++) {
             const row = [];
-            for (let j = 1; j <= 10; j++) {
-                const cell = [{ ship: null, attacked: false }];
+            for (let j = 0; j <= 9; j++) {
+                const cell = { ship: null, attacked: false };
                 row.push(cell);
             }
             board.push(row);
@@ -22,4 +22,4 @@ export default class Gameboard {
 }
 
 const playerBoard = new Gameboard();
-console.log(playerBoard.board);
+console.log(playerBoard.board[0][0]);
