@@ -32,3 +32,8 @@ test("ship is sunk if hitAmount is same as length", () => {
     testShip.hit();
     expect(testShip.isSunk()).toBe(true);
 });
+
+test("ship isn't sunk at the start of the game", () => {
+    const testShip = new Ship(3);
+    expect(testShip.isSunk()).toBe(false);
+});
