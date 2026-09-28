@@ -70,3 +70,23 @@ test("error is thrown if ships are placed on already occupied cells", () => {
     newBoard.placeShips(7, 4, newShip, "vertical");
     expect(() => newBoard.placeShips(8, 3, newerShip, "horizontal")).toThrow();
 });
+
+test("ships on the gameboard accurately receive attacks", () => {
+    const newBoard = new Gameboard();
+    const newShip = new Ship(3);
+    newBoard.placeShips(7, 4, newShip, "vertical");
+    newBoard.receiveAttack(7, 4);
+    expect(newShip.hitAmount).toBe(1);
+});
+
+test("unoccupied attacked cells are accurately recorded as missed", () => {
+    const newBoard = new Gameboard();
+    newBoard.receiveAttack(7, 3);
+    newBoard.receiveAttack(4, 4);
+    newBoard.receiveAttack(9, 5);
+    expect(newBoard.missedAttacks).toEqual([
+        [7, 3],
+        [4, 4],
+        [9, 5],
+    ]);
+});
