@@ -90,3 +90,40 @@ test("unoccupied attacked cells are accurately recorded as missed", () => {
         [9, 5],
     ]);
 });
+
+test("board tracks the amount of ships placed on it", () => {
+    const newBoard = new Gameboard();
+    const ship1 = new Ship(4);
+    const ship2 = new Ship(3);
+    const ship3 = new Ship(2);
+    newBoard.placeShips(7, 4, ship1, "horizontal");
+    newBoard.placeShips(4, 4, ship2, "vertical");
+    newBoard.placeShips(2, 3, ship3, "horizontal");
+    expect(newBoard.ships).toBe(3);
+});
+
+test("board accurately updates number of ships when ships are sunk", () => {
+    const newBoard = new Gameboard();
+    const ship1 = new Ship(4);
+    const ship2 = new Ship(3);
+    const ship3 = new Ship(2);
+    newBoard.placeShips(7, 4, ship1, "horizontal");
+    newBoard.placeShips(4, 4, ship2, "vertical");
+    newBoard.placeShips(2, 3, ship3, "horizontal");
+    newBoard.receiveAttack(7, 4);
+    newBoard.receiveAttack(7, 5);
+    newBoard.receiveAttack(7, 6);
+    newBoard.receiveAttack(7, 7);
+    expect(newBoard.ships).toBe(2);
+});
+
+test("board can report when all ships are sunk", () => {
+    const newBoard = new Gameboard();
+    const ship1 = new Ship(4);
+    newBoard.placeShips(7, 4, ship1, "horizontal");
+    newBoard.receiveAttack(7, 4);
+    newBoard.receiveAttack(7, 5);
+    newBoard.receiveAttack(7, 6);
+    newBoard.receiveAttack(7, 7);
+    expect(newBoard.allAreSunk).toBe(true);
+});
