@@ -18,36 +18,53 @@ export default class Gameboard {
     }
 
     placeShips(x, y, ship, orientation) {
-        let cell = this.board[x][y];
-        for (let i = 1; i <= ship.length; i++) {
-            if (orientation === "vertical") {
-                if (cell.ship !== null) {
-                    throw new Error(
-                        "Can't place ships on already occupied cells!"
-                    );
-                }
+        if (!this.canPlace(x, y, ship, orientation)) {
+            throw new Error("You can't place a ship here!");
+        }
+
+        if (orientation === "vertical") {
+            for (let i = 0; i < ship.length; i++) {
+                let cell = this.board[x + i][y];
                 cell.ship = ship;
-                cell = this.board[x + i][y];
-                console.log(x + i, y);
+            }
+        }
+
+        if (orientation === "horizontal") {
+            for (let i = 0; i < ship.length; i++) {
+                let cell = this.board[x][y + i];
+                cell.ship = ship;
+            }
+        }
+    }
+
+    //check if cells are occupied or out of bounds
+    canPlace(x, y, ship, orientation) {
+        for (let i = 0; i < ship.length; i++) {
+            if (orientation === "vertical") {
+                if (x + i > 9) {
+                    return false;
+                }
+                let cell = this.board[x + i][y];
+                if (cell.ship !== null) {
+                    return false;
+                }
             }
 
             if (orientation === "horizontal") {
-                if (cell.ship !== null) {
-                    throw new Error(
-                        "Can't place ships on already occupied cells!"
-                    );
+                if (y + i > 9) {
+                    return false;
                 }
-                cell.ship = ship;
-                cell = this.board[x][y + i];
-                console.log(x, y + i);
+                let cell = this.board[x][y + i];
+                if (cell.ship !== null) {
+                    return false;
+                }
             }
         }
+
+        return true;
     }
 
     receiveAttack(x, y) {}
 }
 
-const playerBoard = new Gameboard();
-const ship = new Ship(3);
-playerBoard.placeShips(0, 0, ship, "horizontal");
-console.log(playerBoard.board);
+
