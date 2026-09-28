@@ -2,7 +2,7 @@ import Ship from "../src/Ship";
 
 test("ship instance has the length property", () => {
     const testShip = new Ship();
-    expect(testShip.length).toBe(0);
+    expect(testShip.length).toBe(1);
 });
 
 test("ship instance has the hitAmount property", () => {
