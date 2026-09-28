@@ -2,6 +2,7 @@ import Ship from "./Ship.js";
 export default class Gameboard {
     constructor() {
         this.board = this.initializeBoard();
+        this.missedAttacks = [];
     }
 
     initializeBoard() {
@@ -64,7 +65,15 @@ export default class Gameboard {
         return true;
     }
 
-    receiveAttack(x, y) {}
+    receiveAttack(x, y) {
+        const cell = this.board[x][y];
+        const ship = cell.ship;
+        cell.attacked = true;
+
+        if (ship !== null) {
+            ship.hit();
+        } else {
+            this.missedAttacks.push([x, y]);
+        }
+    }
 }
-
-
