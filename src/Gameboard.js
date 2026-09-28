@@ -2,6 +2,8 @@ export default class Gameboard {
     constructor() {
         this.board = this.initializeBoard();
         this.missedAttacks = [];
+        this.ships = 0;
+        this.allAreSunk = false;
     }
 
     initializeBoard() {
@@ -27,6 +29,7 @@ export default class Gameboard {
                 let cell = this.board[x + i][y];
                 cell.ship = ship;
             }
+            this.ships++;
         }
 
         if (orientation === "horizontal") {
@@ -34,10 +37,11 @@ export default class Gameboard {
                 let cell = this.board[x][y + i];
                 cell.ship = ship;
             }
+            this.ships++;
         }
     }
 
-    //check if cells are occupied or out of bounds
+    //helper to check if cells are occupied or out of bounds
     canPlace(x, y, ship, orientation) {
         for (let i = 0; i < ship.length; i++) {
             if (orientation === "vertical") {
@@ -71,6 +75,8 @@ export default class Gameboard {
 
         if (ship !== null) {
             ship.hit();
+            if (ship.isSunk()) this.ships--;
+            if (this.ships === 0) this.allAreSunk = true;
         } else {
             this.missedAttacks.push([x, y]);
         }
