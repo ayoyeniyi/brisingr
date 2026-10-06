@@ -71,8 +71,11 @@ export default class Gameboard {
     receiveAttack(x, y) {
         const cell = this.board[x][y];
         const ship = cell.ship;
+        if (cell.attacked) {
+            throw new Error("You've already attacked this cell!");
+        }
+        
         cell.attacked = true;
-
         if (ship !== null) {
             ship.hit();
             if (ship.isSunk()) this.ships--;
