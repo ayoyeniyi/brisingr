@@ -4,6 +4,7 @@ export default class Gameboard {
         this.missedAttacks = [];
         this.ships = 0;
         this.allAreSunk = false;
+        this.fleetLengths = [5, 4, 3, 3, 2];
     }
 
     initializeBoard() {
