@@ -1,7 +1,7 @@
 import Ship from "../src/Ship";
 
 test("ship instance has the length property", () => {
-    const testShip = new Ship();
+    const testShip = new Ship(2);
     expect(testShip.length).toBeTruthy();
 });
 
