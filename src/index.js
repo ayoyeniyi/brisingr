@@ -1,6 +1,6 @@
 import "./styles.css";
 import Gameboard from "./Gameboard.js";
-import { renderPOneBoard, renderPTwoBoard } from "./renderBoards.js";
+import { renderPOneBoard, renderPTwoBoard } from "./boardMethods.js";
 import { Human, Computer } from "./Player.js";
 
 function initializeGame() {

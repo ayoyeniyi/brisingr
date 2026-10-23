@@ -45,4 +45,9 @@ function renderPTwoBoard(gameboard, showShips) {
         }
     }
 }
+
+function populateBoardRandomly(boardId) {
+    const board = document.getElementById(`${boardId}`);
+    board.textContent = "";
+}
 export { renderPOneBoard, renderPTwoBoard };
