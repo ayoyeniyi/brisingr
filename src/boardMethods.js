@@ -9,6 +9,8 @@ function renderBoard(gameboard, number, showShips) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
             cell.id = `player-${number}-${i}-${j}`;
+            cell.dataset.x = i;
+            cell.dataset.y = j;
 
             if (gameboard[i][j].attacked && gameboard[i][j].ship == null) {
                 cell.classList.add("miss");
