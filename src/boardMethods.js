@@ -25,20 +25,21 @@ function renderBoard(gameboard, number, showShips) {
     }
 }
 
-function populateBoardRandomly(gameboard, boardId) {
-    const board = document.getElementById(`${boardId}`);
-    board.textContent = "";
-
-    while (gameboard.ships <= 5) {
-        const x = generateRandomCoordinate();
-        const y = generateRandomCoordinate();
-        const direction = getRandomDirection();
-
-        for (let i = 0; i < gameboard.fleetLengths; i++) {
-            const ship = new Ship(i);
-            gameboard.placeShips(x, y, ship, direction);
+function populateBoardRandomly(gameboard) {
+    for (let i = 0; i < gameboard.fleetLengths.length; i++) {
+        const ship = new Ship(gameboard.fleetLengths[i]);
+        let placed = false;
+        while (!placed) {
+            const x = generateRandomCoordinate();
+            const y = generateRandomCoordinate();
+            const direction = getRandomDirection();
+            let canPlace = gameboard.canPlace(x, y, ship, direction);
+            if (canPlace) {
+                gameboard.placeShips(x, y, ship, direction);
+                placed = true;
+            }
         }
     }
 }
 
-export { renderBoard };
+export { renderBoard, populateBoardRandomly };
