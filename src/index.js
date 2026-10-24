@@ -1,6 +1,6 @@
 import "./styles.css";
 import Gameboard from "./Gameboard.js";
-import { renderPOneBoard, renderPTwoBoard } from "./boardMethods.js";
+import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
 import { Human, Computer } from "./Player.js";
 
 function initializeGame() {
@@ -8,14 +8,16 @@ function initializeGame() {
     const human = players.human;
     const computer = players.computer;
 
-    renderPOneBoard(human.board.board);
-    renderPTwoBoard(computer.board.board);
+    populateBoardRandomly(human.board, "one");
+    populateBoardRandomly(computer.board, "two");
+    renderBoard(human.board.board, "one", true);
+    renderBoard(computer.board.board, "two", true);
 }
 
 function createPlayers() {
     const human = new Human();
     const computer = new Computer();
     return { human, computer };
-};
+}
 
 initializeGame();
