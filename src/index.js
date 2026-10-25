@@ -1,6 +1,6 @@
 import "./styles.css";
 import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
-import { createPlayers } from "./helpers.js";
+import { createPlayers, generateRandomCoordinate } from "./helpers.js";
 import { createBoardClickHandler } from "./dom.js";
 
 function initializeGame() {
@@ -18,6 +18,25 @@ function initializeGame() {
                 renderBoard(gameboard.board, "two", false);
             } else {
                 currentPlayer = "computer";
+                computerAttack(human.board);
+            }
+        }
+    }
+
+    function computerAttack(gameboard) {
+        if (currentPlayer === "computer") {
+            let [x, y] = [generateRandomCoordinate(), generateRandomCoordinate()];
+            while (!gameboard.checkValidAttack(x, y)) {
+                [x, y] = [generateRandomCoordinate(), generateRandomCoordinate()];
+            }
+
+            gameboard.receiveAttack(x, y);
+            renderBoard(gameboard.board, "one", true);
+            if (gameboard.allAreSunk) {
+                alert("All ships have been sunk! The computer wins!");
+                renderBoard(gameboard.board, "two", false);
+            } else {
+                currentPlayer = "human";
             }
         }
     }
