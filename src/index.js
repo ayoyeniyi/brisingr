@@ -1,5 +1,4 @@
 import "./styles.css";
-import Gameboard from "./Gameboard.js";
 import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
 import { createPlayers } from "./helpers.js";
 import { createBoardClickHandler } from "./dom.js";
