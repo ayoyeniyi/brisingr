@@ -9,7 +9,14 @@ function initializeGame() {
     const computer = players.computer;
     let currentPlayer = "human";
 
+    function gameOver() {
+        return human.board.allAreSunk || computer.board.allAreSunk;
+    }
+
     function attackPlayer(x, y, gameboard) {
+        if (gameOver()) {
+            return;
+        }
         if (currentPlayer === "human") {
             if (!gameboard.checkValidAttack(x, y)) {
                 return;
@@ -27,6 +34,9 @@ function initializeGame() {
     }
 
     function computerAttack(gameboard) {
+        if (gameOver()) {
+            return;
+        }
         if (currentPlayer === "computer") {
             let [x, y] = [
                 generateRandomCoordinate(),
