@@ -22,4 +22,9 @@ function createRandomizeButtonHandler(gameboard) {
     });
 }
 
-export { createBoardClickHandler, createRandomizeButtonHandler };
+function disableRandomizeButton() {
+    const randomizeButton = document.querySelector(".randomize");
+    randomizeButton.disabled = true;
+}
+
+export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton };
