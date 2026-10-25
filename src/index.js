@@ -11,10 +11,13 @@ function initializeGame() {
 
     function attackPlayer(x, y, gameboard) {
         if (currentPlayer === "human") {
+            if (!gameboard.checkValidAttack(x, y)) {
+                return;
+            }
             gameboard.receiveAttack(x, y);
             renderBoard(gameboard.board, "two", false);
             if (gameboard.allAreSunk) {
-                renderBoard(gameboard.board, "two", false);
+                renderBoard(gameboard.board, "two", true);
                 alert("All ships have been sunk! You win!");
             } else {
                 currentPlayer = "computer";
@@ -40,7 +43,7 @@ function initializeGame() {
             renderBoard(gameboard.board, "one", true);
             if (gameboard.allAreSunk) {
                 alert("All ships have been sunk! The computer wins!");
-                renderBoard(gameboard.board, "two", false);
+                renderBoard(gameboard.board, "one", true);
             } else {
                 currentPlayer = "human";
             }
