@@ -14,8 +14,8 @@ function initializeGame() {
             gameboard.receiveAttack(x, y);
             renderBoard(gameboard.board, "two", false);
             if (gameboard.allAreSunk) {
-                alert("All ships have been sunk! You win!");
                 renderBoard(gameboard.board, "two", false);
+                alert("All ships have been sunk! You win!");
             } else {
                 currentPlayer = "computer";
                 computerAttack(human.board);
@@ -25,9 +25,15 @@ function initializeGame() {
 
     function computerAttack(gameboard) {
         if (currentPlayer === "computer") {
-            let [x, y] = [generateRandomCoordinate(), generateRandomCoordinate()];
+            let [x, y] = [
+                generateRandomCoordinate(),
+                generateRandomCoordinate(),
+            ];
             while (!gameboard.checkValidAttack(x, y)) {
-                [x, y] = [generateRandomCoordinate(), generateRandomCoordinate()];
+                [x, y] = [
+                    generateRandomCoordinate(),
+                    generateRandomCoordinate(),
+                ];
             }
 
             gameboard.receiveAttack(x, y);
