@@ -1,7 +1,7 @@
 import "./styles.css";
 import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
 import { createPlayers, generateRandomCoordinate } from "./helpers.js";
-import { createBoardClickHandler, createRandomizeButtonHandler } from "./dom.js";
+import { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton } from "./dom.js";
 
 function initializeGame() {
     const players = createPlayers();
@@ -22,11 +22,12 @@ function initializeGame() {
                 return;
             }
             gameboard.receiveAttack(x, y);
-            renderBoard(gameboard.board, "two", false);
+            disableRandomizeButton();
             if (gameboard.allAreSunk) {
                 renderBoard(gameboard.board, "two", true);
                 alert("All ships have been sunk! You win!");
             } else {
+                renderBoard(gameboard.board, "two", false);
                 currentPlayer = "computer";
                 computerAttack(human.board);
             }
