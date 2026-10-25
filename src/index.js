@@ -1,7 +1,7 @@
 import "./styles.css";
 import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
 import { createPlayers, generateRandomCoordinate } from "./helpers.js";
-import { createBoardClickHandler } from "./dom.js";
+import { createBoardClickHandler, createRandomizeButtonHandler } from "./dom.js";
 
 function initializeGame() {
     const players = createPlayers();
@@ -61,6 +61,7 @@ function initializeGame() {
     }
 
     createBoardClickHandler("two", computer.board, attackPlayer);
+    createRandomizeButtonHandler(human.board);
 
     populateBoardRandomly(human.board, "one");
     populateBoardRandomly(computer.board, "two");
