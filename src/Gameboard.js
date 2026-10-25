@@ -90,4 +90,9 @@ export default class Gameboard {
         const cell = this.board[x][y];
         return !cell.attacked;
     }
+
+    clearBoard() {
+        this.board = this.initializeBoard();
+        this.ships = 0;
+    }
 }
