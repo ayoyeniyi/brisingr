@@ -85,4 +85,9 @@ export default class Gameboard {
             this.missedAttacks.push([x, y]);
         }
     }
+
+    checkValidAttack(x, y) {
+        const cell = this.board[x][y];
+        return !cell.attacked;
+    }
 }
