@@ -2,10 +2,17 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 header {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 24px;
 }
 
 .cell {
@@ -23,6 +30,8 @@ header {
     align-items: flex-start;
     justify-content: center;
     gap: 100px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .player-one {
