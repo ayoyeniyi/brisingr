@@ -25,7 +25,9 @@ function initializeGame() {
             disableRandomizeButton();
             if (gameboard.allAreSunk) {
                 renderBoard(gameboard.board, "two", true);
-                alert("All ships have been sunk! You win!");
+                setTimeout(() => {
+                    alert("All ships have been sunk! You win!");
+                }, 100);
             } else {
                 renderBoard(gameboard.board, "two", false);
                 currentPlayer = "computer";
