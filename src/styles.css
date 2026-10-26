@@ -3,13 +3,13 @@
 }
 
 .cell {
-    height: 20px;
+    height: 30px;
     border: 1px solid black;
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, 20px);
+    grid-template-columns: repeat(10, 30px);
 }
 
 .container {
@@ -17,6 +17,13 @@
     align-items: center;
     justify-content: center;
     gap: 100px;
+}
+
+.randomize {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
 }
 
 .occupied {
