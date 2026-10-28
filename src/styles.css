@@ -58,3 +58,8 @@ header {
 .miss {
     background-color: gray;
 }
+
+.dragging {
+    opacity: 0.6;
+    background-color: #6B9AC4;
+}
