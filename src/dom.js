@@ -26,8 +26,22 @@ function disableRandomizeButton() {
     randomizeButton.disabled = true;
 }
 
-function cellDragHandler() {
-
+function createCellDragHandler(gameboard) {
+    const board = document.querySelector(".board-one");
+    board.addEventListener("dragstart", (event) => {
+        if (!event.target.classList.contains("cell")) {
+            return;
+        }
+        const x = parseInt(event.target.dataset.x, 10);
+        const y = parseInt(event.target.dataset.y, 10);
+        const ship = gameboard.board[x][y].ship;
+        const coords = gameboard.scanBoard(ship);
+        for (let i = 0; i < coords.length; i++) {
+            const [cx, cy] = coords[i];
+            const cell = document.getElementById(`player-one-${cx}-${cy}`);
+            cell.classList.add("dragging");
+        }
+    });
 }
 
-export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton };
+export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton, createCellDragHandler };
