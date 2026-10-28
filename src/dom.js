@@ -1,7 +1,6 @@
 import { populateBoardRandomly, renderBoard } from "./boardMethods.js";
 
 function createBoardClickHandler(number, gameboard, attackPlayer) {
-    console.log("clicked!");
     const board = document.querySelector(`.board-${number}`);
     board.addEventListener("click", (event) => {
         if (!event.target.classList.contains("cell")) {
@@ -25,6 +24,10 @@ function createRandomizeButtonHandler(gameboard) {
 function disableRandomizeButton() {
     const randomizeButton = document.querySelector(".randomize");
     randomizeButton.disabled = true;
+}
+
+function cellDragHandler() {
+
 }
 
 export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton };
