@@ -11,7 +11,6 @@ function renderBoard(gameboard, number, showShips) {
             cell.id = `player-${number}-${i}-${j}`;
             cell.dataset.x = i;
             cell.dataset.y = j;
-            cell.draggable = true;
 
             if (gameboard[i][j].attacked && gameboard[i][j].ship == null) {
                 cell.classList.add("miss");
@@ -22,6 +21,7 @@ function renderBoard(gameboard, number, showShips) {
                 cell.classList.add("hit");
             } else if (gameboard[i][j].ship !== null && showShips) {
                 cell.classList.add("occupied");
+                cell.draggable = true;
             }
             board.append(cell);
         }
