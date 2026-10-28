@@ -69,6 +69,19 @@ export default class Gameboard {
         return true;
     }
 
+    scanBoard(ship) {
+        const shipCoordinates = [];
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                const cell = this.board[i][j];
+                if (cell.ship === ship) {
+                    shipCoordinates.push([i, j]);
+                }
+            }
+        }
+        return shipCoordinates;
+    }
+
     receiveAttack(x, y) {
         const cell = this.board[x][y];
         const ship = cell.ship;
