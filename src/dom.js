@@ -26,7 +26,7 @@ function disableRandomizeButton() {
     randomizeButton.disabled = true;
 }
 
-function createCellDragHandler(gameboard) {
+function createCellDragStartHandler(gameboard) {
     const board = document.querySelector(".board-one");
     board.addEventListener("dragstart", (event) => {
         if (!event.target.classList.contains("cell")) {
@@ -44,4 +44,5 @@ function createCellDragHandler(gameboard) {
     });
 }
 
-export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton, createCellDragHandler };
+
+export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton, createCellDragStartHandler };

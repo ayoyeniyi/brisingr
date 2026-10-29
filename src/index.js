@@ -1,7 +1,7 @@
 import "./styles.css";
 import { renderBoard, populateBoardRandomly } from "./boardMethods.js";
 import { createPlayers, generateRandomCoordinate } from "./helpers.js";
-import { createBoardClickHandler, createCellDragHandler, createRandomizeButtonHandler, disableRandomizeButton } from "./dom.js";
+import { createBoardClickHandler, createCellDragStartHandler, createRandomizeButtonHandler, disableRandomizeButton } from "./dom.js";
 
 function initializeGame() {
     const players = createPlayers();
@@ -64,7 +64,7 @@ function initializeGame() {
     }
 
     createBoardClickHandler("two", computer.board, attackPlayer);
-    createCellDragHandler(human.board);
+    createCellDragStartHandler(human.board);
     createRandomizeButtonHandler(human.board);
 
     populateBoardRandomly(human.board, "one");
