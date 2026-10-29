@@ -44,5 +44,24 @@ function createCellDragStartHandler(gameboard) {
     });
 }
 
+function createCellDragEndHandler() {
+    const board = document.querySelector(".board-one");
+    board.addEventListener("dragend", (event) => {
+        if (!event.target.classList.contains("cell")) {
+            return;
+        }
 
-export { createBoardClickHandler, createRandomizeButtonHandler, disableRandomizeButton, createCellDragStartHandler };
+        const cells = document.querySelectorAll(".dragging");
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].classList.remove("dragging");
+        }
+    });
+}
+
+export {
+    createBoardClickHandler,
+    createRandomizeButtonHandler,
+    disableRandomizeButton,
+    createCellDragStartHandler,
+    createCellDragEndHandler,
+};
