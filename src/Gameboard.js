@@ -69,6 +69,17 @@ export default class Gameboard {
         return true;
     }
 
+    removeShip(x, y) {
+        const ship = this.board[x][y].ship;
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j].ship === ship) {
+                    this.board[i][j].ship = null;
+                }
+            }
+        }
+    }
+
     scanBoard(ship) {
         const shipCoordinates = [];
         for (let i = 0; i < this.board.length; i++) {
