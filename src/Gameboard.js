@@ -32,7 +32,7 @@ export default class Gameboard {
                 let cell = this.board[x + i][y];
                 cell.ship = ship;
             }
-            this.moving ? this.ships++ : null;
+            if (!this.moving) this.ships++;
         }
 
         if (orientation === "horizontal") {
@@ -41,19 +41,23 @@ export default class Gameboard {
                 let cell = this.board[x][y + i];
                 cell.ship = ship;
             }
-            this.moving ? this.ships++ : null;
+            if (!this.moving) this.ships++;
         }
     }
 
     //helper to check if cells are occupied or out of bounds
     canPlace(x, y, ship, orientation) {
+        if (x < 0 || x > 9 || y < 0 || y > 9) {
+            return false;
+        }
+        
         for (let i = 0; i < ship.length; i++) {
             if (orientation === "vertical") {
                 if (x + i > 9) {
                     return false;
                 }
                 let cell = this.board[x + i][y];
-                if (cell.ship !== null) {
+                if (cell.ship !== null && cell.ship !== ship) {
                     return false;
                 }
             }
@@ -63,7 +67,7 @@ export default class Gameboard {
                     return false;
                 }
                 let cell = this.board[x][y + i];
-                if (cell.ship !== null) {
+                if (cell.ship !== null && cell.ship !== ship) {
                     return false;
                 }
             }
@@ -104,15 +108,23 @@ export default class Gameboard {
         }
 
         //check if the ship can be placed in the new location
-        if (!this.canPlace(nextStart, nextY, ship, orientation)) {
-            return;
+        if (orientation === "vertical") {
+            if (!this.canPlace(nextStart, nextY, ship, orientation)) {
+                return;
+            }
+            this.removeShip(prevX, prevY);
+            this.moving = true;
+            this.placeShips(nextStart, nextY, ship, orientation);
+            this.moving = false;
+        } else {
+            if (!this.canPlace(nextX, nextStart, ship, orientation)) {
+                return;
+            }
+            this.removeShip(prevX, prevY);
+            this.moving = true;
+            this.placeShips(nextX, nextStart, ship, orientation);
+            this.moving = false;
         }
-
-        //remove the ship from its current location
-        this.removeShip(prevX, prevY);
-
-        //place the ship in its new location
-        this.placeShips(nextStart, nextY, ship, orientation);
     }
 
     scanBoard(ship) {

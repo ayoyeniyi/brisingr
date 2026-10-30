@@ -58,8 +58,8 @@ function createCellDragEndHandler() {
         const cells = document.querySelectorAll(".dragging");
         for (let i = 0; i < cells.length; i++) {
             cells[i].classList.remove("dragging");
-            STORE = [];
         }
+        STORE.length = 0;
     });
 }
 
@@ -87,9 +87,8 @@ function createCellDragOverHandler(gameboard) {
         const x = parseInt(event.target.dataset.x, 10);
         const y = parseInt(event.target.dataset.y, 10);
         const [prevX, prevY] = STORE.pop();
-        gameboard.removeShip(prevX, prevY);
+        gameboard.moveShip(prevX, prevY, x, y);
         renderBoard(gameboard.board, "one", true);
-        console.log([prevX, prevY]);
     });
 }
 
