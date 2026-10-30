@@ -14,12 +14,15 @@ function createBoardClickHandler(number, gameboard, attackPlayer) {
     });
 }
 
-function createRandomizeButtonHandler(gameboard) {
+function createRandomizeButtonHandler(gameboard, gameState = { settingUp: true }) {
     const randomizeButton = document.querySelector(".randomize");
     randomizeButton.addEventListener("click", () => {
+        if (!gameState.settingUp) {
+            return;
+        }
         gameboard.clearBoard();
         populateBoardRandomly(gameboard, "one");
-        renderBoard(gameboard.board, "one", true);
+        renderBoard(gameboard.board, "one", true, gameState.settingUp);
     });
 }
 
@@ -28,9 +31,13 @@ function disableRandomizeButton() {
     randomizeButton.disabled = true;
 }
 
-function createCellDragStartHandler(gameboard) {
+function createCellDragStartHandler(gameboard, gameState = { settingUp: true }) {
     const board = document.querySelector(".board-one");
     board.addEventListener("dragstart", (event) => {
+        if (!gameState.settingUp) {
+            event.preventDefault();
+            return;
+        }
         if (!event.target.classList.contains("cell")) {
             return;
         }
@@ -43,7 +50,9 @@ function createCellDragStartHandler(gameboard) {
         for (let i = 0; i < coords.length; i++) {
             const [cx, cy] = coords[i];
             const cell = document.getElementById(`player-one-${cx}-${cy}`);
-            cell.classList.add("dragging");
+            if (cell) {
+                cell.classList.add("dragging");
+            }
         }
     });
 }
@@ -63,9 +72,12 @@ function createCellDragEndHandler() {
     });
 }
 
-function createCellDragOverHandler(gameboard) {
+function createCellDragOverHandler(gameboard, gameState = { settingUp: true }) {
     const board = document.querySelector(".board-one");
     board.addEventListener("dragover", (event) => {
+        if (!gameState.settingUp) {
+            return;
+        }
         if (!event.target.classList.contains("cell")) {
             return;
         }
@@ -80,6 +92,9 @@ function createCellDragOverHandler(gameboard) {
     });
 
     board.addEventListener("drop", (event) => {
+        if (!gameState.settingUp) {
+            return;
+        }
         if (!event.target.classList.contains("cell")) {
             return;
         }
@@ -88,7 +103,7 @@ function createCellDragOverHandler(gameboard) {
         const y = parseInt(event.target.dataset.y, 10);
         const [prevX, prevY] = STORE.pop();
         gameboard.moveShip(prevX, prevY, x, y);
-        renderBoard(gameboard.board, "one", true);
+        renderBoard(gameboard.board, "one", true, gameState.settingUp);
     });
 }
 

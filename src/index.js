@@ -7,6 +7,7 @@ function initializeGame() {
     const players = createPlayers();
     const human = players.human;
     const computer = players.computer;
+    const gameState = { settingUp: true };
     let currentPlayer = "human";
 
     function gameOver() {
@@ -21,15 +22,16 @@ function initializeGame() {
             if (!gameboard.checkValidAttack(x, y)) {
                 return;
             }
+            gameState.settingUp = false;
             gameboard.receiveAttack(x, y);
             disableRandomizeButton();
             if (gameboard.allAreSunk) {
-                renderBoard(gameboard.board, "two", true);
+                renderBoard(gameboard.board, "two", true, gameState.settingUp);
                 setTimeout(() => {
                     alert("All ships have been sunk! You win!");
                 }, 100);
             } else {
-                renderBoard(gameboard.board, "two", false);
+                renderBoard(gameboard.board, "two", false, gameState.settingUp);
                 currentPlayer = "computer";
                 computerAttack(human.board);
             }
@@ -53,10 +55,10 @@ function initializeGame() {
             }
 
             gameboard.receiveAttack(x, y);
-            renderBoard(gameboard.board, "one", true);
+            renderBoard(gameboard.board, "one", true, gameState.settingUp);
             if (gameboard.allAreSunk) {
                 alert("All ships have been sunk! The computer wins!");
-                renderBoard(gameboard.board, "one", true);
+                renderBoard(gameboard.board, "one", true, gameState.settingUp);
             } else {
                 currentPlayer = "human";
             }
@@ -64,15 +66,15 @@ function initializeGame() {
     }
 
     createBoardClickHandler("two", computer.board, attackPlayer);
-    createCellDragStartHandler(human.board);
+    createCellDragStartHandler(human.board, gameState);
     createCellDragEndHandler();
-    createCellDragOverHandler(human.board);
-    createRandomizeButtonHandler(human.board);
+    createCellDragOverHandler(human.board, gameState);
+    createRandomizeButtonHandler(human.board, gameState);
 
     populateBoardRandomly(human.board, "one");
     populateBoardRandomly(computer.board, "two");
-    renderBoard(human.board.board, "one", true);
-    renderBoard(computer.board.board, "two", false);
+    renderBoard(human.board.board, "one", true, gameState.settingUp);
+    renderBoard(computer.board.board, "two", false, gameState.settingUp);
 }
 
 initializeGame();

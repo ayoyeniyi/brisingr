@@ -1,7 +1,7 @@
 import { generateRandomCoordinate, getRandomDirection } from "./helpers.js";
 import Ship from "./Ship.js";
 
-function renderBoard(gameboard, number, showShips) {
+function renderBoard(gameboard, number, showShips, settingUp) {
     const board = document.querySelector(`.board-${number}`);
     board.textContent = "";
     for (let i = 0; i < gameboard.length; i++) {
@@ -21,7 +21,7 @@ function renderBoard(gameboard, number, showShips) {
                 cell.classList.add("hit");
             } else if (gameboard[i][j].ship !== null && showShips) {
                 cell.classList.add("occupied");
-                cell.draggable = true;
+                cell.draggable = settingUp && number === "one";
             }
             board.append(cell);
         }
