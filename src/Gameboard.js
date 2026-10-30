@@ -3,6 +3,7 @@ export default class Gameboard {
         this.board = this.initializeBoard();
         this.missedAttacks = [];
         this.ships = 0;
+        this.moving = false;
         this.allAreSunk = false;
         this.fleetLengths = [5, 4, 3, 3, 2];
     }
@@ -26,19 +27,21 @@ export default class Gameboard {
         }
 
         if (orientation === "vertical") {
+            ship.orientation = "vertical";
             for (let i = 0; i < ship.length; i++) {
                 let cell = this.board[x + i][y];
                 cell.ship = ship;
             }
-            this.ships++;
+            this.moving ? this.ships++ : null;
         }
 
         if (orientation === "horizontal") {
+            ship.orientation = "horizontal";
             for (let i = 0; i < ship.length; i++) {
                 let cell = this.board[x][y + i];
                 cell.ship = ship;
             }
-            this.ships++;
+            this.moving ? this.ships++ : null;
         }
     }
 
@@ -78,6 +81,38 @@ export default class Gameboard {
                 }
             }
         }
+    }
+
+    moveShip(prevX, prevY, nextX, nextY) {
+        const ship = this.board[prevX][prevY].ship;
+        const coords = this.scanBoard(ship);
+
+        //Find the ship's current start and orientation.
+        const [startX, startY] = coords[0];
+        const orientation = ship.orientation;
+
+        //calculate where the start would be after the move
+        let startOffset;
+        let nextStart;
+
+        if (orientation === "vertical") {
+            startOffset = prevX - startX;
+            nextStart = nextX - startOffset;
+        } else {
+            startOffset = prevY - startY;
+            nextStart = nextY - startOffset;
+        }
+
+        //check if the ship can be placed in the new location
+        if (!this.canPlace(nextStart, nextY, ship, orientation)) {
+            return;
+        }
+
+        //remove the ship from its current location
+        this.removeShip(prevX, prevY);
+
+        //place the ship in its new location
+        this.placeShips(nextStart, nextY, ship, orientation);
     }
 
     scanBoard(ship) {
