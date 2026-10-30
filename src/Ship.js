@@ -3,6 +3,7 @@ export default class Ship {
         this.length = length;
         this.hitAmount = 0;
         this.sunk = false;
+        this.orientation = null;
     }
 
     hit() {
